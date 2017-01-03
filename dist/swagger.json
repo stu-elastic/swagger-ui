@@ -1,0 +1,211 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "",
+    "title": "",
+    "termsOfService": ""
+  },
+  "host": "localhost",
+  "basePath": "/api/v1/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Top level overview",
+        "description": "\n         This method returns available child resources\n            ",
+        "operationId": "rootPath",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The top level overview",
+            "schema": {
+              "$ref": "#/definitions/OverviewReply"
+            }
+          }
+        }
+      }
+    },
+    "/clusters": {
+      "post": {
+        "summary": "Create a new dummy cluster",
+        "description": "\n         This is just a sample call demonstrating deserialization\n            ",
+        "operationId": "dummyCreateClusterPath",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dummy request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DummyClusterWrite"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The result of the dummy cluster create",
+            "schema": {
+              "$ref": "#/definitions/DummyClusterWriteReply"
+            }
+          },
+          "503": {
+            "description": "If the resource is requested to fail then oblige",
+            "schema": {
+              "$ref": "#/definitions/BasicFailedReply"
+            }
+          }
+        }
+      }
+    },
+    "/region": {
+      "get": {
+        "summary": "Region overview",
+        "description": "\n         This method returns an overview of the status of the specified region\n      ",
+        "operationId": "rootPath",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The region overview",
+            "schema": {
+              "$ref": "#/definitions/OverviewReply"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "definitions": {
+    "AllocatorInformation": {
+      "type": "object",
+      "properties": {
+        "connected": {
+          "type": "boolean",
+          "default": false
+        },
+        "data": {
+          "$ref": "#/definitions/JSON"
+        },
+        "instances": {
+          "$ref": "#/definitions/JSON"
+        },
+        "metadata": {
+          "$ref": "#/definitions/JSON"
+        },
+        "healthy": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "BasicFailedReply": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasicFailedReplyElement"
+          }
+        }
+      }
+    },
+    "OptionListString": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean",
+          "default": false
+        },
+        "defined": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "Function1RequestContextBoxedUnit": {
+      "type": "object"
+    },
+    "Allocators": {
+      "type": "object",
+      "properties": {
+        "allocators": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/AllocatorInformation"
+            }
+          }
+        },
+        "healthy": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "BasicFailedReplyElement": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "$ref": "#/definitions/OptionListString"
+        }
+      }
+    },
+    "DummyClusterWrite": {
+      "type": "object",
+      "properties": {
+        "shouldFail": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "OverviewReply": {
+      "type": "object",
+      "properties": {
+        "allocators": {
+          "description": "Status and metadata information about the allocators in a region",
+          "$ref": "#/definitions/Allocators"
+        },
+        "links": {
+          "type": "array",
+          "description": "List of child resources in HATEOAS format",
+          "items": {
+            "$ref": "#/definitions/Hyperlink"
+          }
+        }
+      }
+    },
+    "DummyClusterWriteReply": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Hyperlink": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "rel": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

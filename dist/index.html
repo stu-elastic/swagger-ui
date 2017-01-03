@@ -33,6 +33,7 @@
   <!-- <script src='lang/en.js' type='text/javascript'></script> -->
 
   <script type="text/javascript">
+    <!-- TODO(stu): removed
     $(function () {
       var url = window.location.search.match(/url=([^&]+)/);
       if (url && url.length > 1) {
@@ -40,7 +41,7 @@
       } else {
         url = "http://petstore.swagger.io/v2/swagger.json";
       }
-
+    -->
       hljs.configure({
         highlightSizeThreshold: 5000
       });
@@ -50,7 +51,10 @@
         window.SwaggerTranslator.translate();
       }
       window.swaggerUi = new SwaggerUi({
+        url: "/swagger.json",
+        <!-- TODO(stu): replaced
         url: url,
+        -->
         dom_id: "swagger-ui-container",
         supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
         onComplete: function(swaggerApi, swaggerUi){
@@ -91,6 +95,7 @@
 </head>
 
 <body class="swagger-section">
+<!-- TODO(stu): removed
 <div id='header'>
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
@@ -100,6 +105,7 @@
       <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
     </form>
   </div>
+-->
 </div>
 
 <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
